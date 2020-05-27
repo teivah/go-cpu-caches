@@ -73,7 +73,7 @@ func BenchmarkStructurePadding(b *testing.B) {
 
 const matrixLength = 6400
 
-func BenchmarkMatrixSimpleAddition(b *testing.B) {
+func BenchmarkMatrixCombination(b *testing.B) {
 	matrixA := createMatrix(matrixLength)
 	matrixB := createMatrix(matrixLength)
 
@@ -86,7 +86,7 @@ func BenchmarkMatrixSimpleAddition(b *testing.B) {
 	}
 }
 
-func BenchmarkMatrixReversedAddition(b *testing.B) {
+func BenchmarkMatrixReversedCombination(b *testing.B) {
 	matrixA := createMatrix(matrixLength)
 	matrixB := createMatrix(matrixLength)
 
@@ -99,25 +99,7 @@ func BenchmarkMatrixReversedAddition(b *testing.B) {
 	}
 }
 
-func BenchmarkMatrixReversedAdditionPerBlock(b *testing.B) {
-	matrixA := createMatrix(matrixLength)
-	matrixB := createMatrix(matrixLength)
-	blockSize := 8
-
-	for n := 0; n < b.N; n++ {
-		for i := 0; i < matrixLength; i += blockSize {
-			for j := 0; j < matrixLength; j += blockSize {
-				for ii := i; ii < i+blockSize; ii++ {
-					for jj := j; jj < j+blockSize; jj++ {
-						matrixA[ii][jj] = matrixA[ii][jj] + matrixB[jj][ii]
-					}
-				}
-			}
-		}
-	}
-}
-
-func BenchmarkMatrixReversedAdditionPerBlockB(b *testing.B) {
+func BenchmarkMatrixReversedCombinationPerBlock(b *testing.B) {
 	matrixA := createMatrix(matrixLength)
 	matrixB := createMatrix(matrixLength)
 	blockSize := 8
